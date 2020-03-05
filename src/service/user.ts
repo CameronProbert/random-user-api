@@ -1,6 +1,6 @@
 import { UserApi, UserModelToSave, FilterOptions, UserApiToSave } from '../types';
 import { getAll, get, insert, save } from '../repository/user';
-import { userMapToArray, transformModelToApi, randomDob, randomEmail, randomName, randomPhoneNumber, randomCatUrl, randomTitle, transformApiToModelToSave } from '../util/user';
+import { userMapToArray, transformModelToApi, randomDob, randomEmail, randomName, randomPhoneNumber, randomCatUrl, randomTitle, transformApiToModelToSave, transformApiToModel } from '../util/user';
 
 export async function getFirstUser(): Promise<UserApi> {
     const allUsers = userMapToArray(await getAll());
@@ -52,7 +52,7 @@ export async function getFiltered(filters: FilterOptions): Promise<UserApi[]> {
 
 export async function deleteById(id: string): Promise<void> {
     const allUsers = await getAll();
-    if (!allUsers[id]) throw new Error(`Could not find user with ID ${id}`)
+    if (!allUsers[id]) throw new Error(`Could not find user with ID ${id}`);
     try {
         delete allUsers[id];
         save(allUsers);
@@ -63,4 +63,15 @@ export async function deleteById(id: string): Promise<void> {
 
 export async function addNewUser(user: UserApiToSave): Promise<string> {
     return insert(transformApiToModelToSave(user));
+}
+
+export async function updateUser(userId: string, user: Partial<UserApi>): Promise<void> {
+    const allUsers = await getAll();
+    const updatedUser: UserApi = {
+        ...transformModelToApi(allUsers[userId]),
+        ...user,
+        id: userId
+    };
+    allUsers[userId] = transformApiToModel(updatedUser);
+    save(allUsers);
 }
