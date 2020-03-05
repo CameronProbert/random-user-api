@@ -16,7 +16,7 @@ async function save(allUsers: Map<UserModel>): Promise<void> {
     writeFile(jsonPath, JSON.stringify(allUsers, null, 2));
 }
 
-export async function getAll(): Promise<Map<UserModel>> {
+export async function getAll(filters: FilterOptions): Promise<Map<UserModel>> {
     const fileBuffer = await readFile(jsonPath, 'utf8');
     const contents: Map<UserModel> = JSON.parse(fileBuffer)
     Object.values(contents).forEach(user => user.dob = new Date(user.dob)) // JSON.parse doesn't parse it into a date

@@ -1,6 +1,7 @@
 import express from 'express';
 import { UserApi } from '../types';
-import { getById, getNumber, getRandomUser, getNewRandomUser } from '../service/user';
+import { getById, getRandomUser, getNewRandomUser } from '../service/user';
+import { getAll } from '../repository/user';
 
 const app = express();
 
@@ -12,7 +13,9 @@ app.get('/', (req, res) => {
 
 app.get('/users', async (req, res) => {
     const numToReturn: number = parseInt(req.query.results) || 20;
-    const users = await getNumber(numToReturn)
+    const firstName = req.query.firstName;
+    const lastName = req.query.lastName;
+    const users = await getAll({numToReturn, firstName, lastName})
     res.send(users)
 })
 
