@@ -1,25 +1,22 @@
 import path from 'path';
-import fs from 'fs';
-import util from 'util';
 import { Map, UserModel, UserModelToSave } from '../types';
 import {v4 as generateGuid} from 'uuid';
+import { writeFile, readFile } from '../util/file';
 
 // Temporarily using a json file as a kind of database.
 // When app is working then switch it out for a sql/nosql db
 
-const jsonPath: Readonly<string> = path.join("./public", "testData.json");
+const jsonPath: Readonly<string> = path.join('./public', 'testData.json');
 
-const readFile = util.promisify(fs.readFile);
-const writeFile = util.promisify(fs.writeFile);
 
 async function save(allUsers: Map<UserModel>): Promise<void> {
     writeFile(jsonPath, JSON.stringify(allUsers, null, 2));
 }
 
-export async function getAll(filters: FilterOptions): Promise<Map<UserModel>> {
+export async function getAll(): Promise<Map<UserModel>> {
     const fileBuffer = await readFile(jsonPath, 'utf8');
-    const contents: Map<UserModel> = JSON.parse(fileBuffer)
-    Object.values(contents).forEach(user => user.dob = new Date(user.dob)) // JSON.parse doesn't parse it into a date
+    const contents: Map<UserModel> = JSON.parse(fileBuffer);
+    Object.values(contents).forEach(user => user.dob = new Date(user.dob)); // JSON.parse doesn't parse it into a date
     return contents;
 }
 

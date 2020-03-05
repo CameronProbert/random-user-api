@@ -43,8 +43,8 @@ export type UserModelToSave = {
 
 export type Map<T> = {[id: string]: T}
 
-export type FilterOptions = {
+export type FilterOptions = Partial<{
   numToReturn: number,
-  firstName: string | undefined,
-  lastName: string | undefined,
-}
+  firstName: string,
+  lastName: string,
+}>

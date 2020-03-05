@@ -1,5 +1,5 @@
-import { userMapToArray, userArrayToMap } from '../../util/user'
-import { UserMap, User } from '../../types'
+import { userMapToArray, userArrayToMap } from '../../util/user';
+import { UserMap, User } from '../../types';
 
 const userSomeId = {
     dob: {
@@ -81,12 +81,12 @@ describe('userMapToArray', () => {
     it.each([[userAsb456a46], [userQwer], [userSomeId], [userSomeIdzxc]])('turns a single user in map to single user in array', user => {
         const map: UserMap = {
             [user.id]: user,
-        }
+        };
 
         const actual = userMapToArray(map);
 
-        expect(actual).toMatchObject([user])
-    })
+        expect(actual).toMatchObject([user]);
+    });
 
     it('turns a single user in map to single user in array', () => {
         const map: UserMap = {
@@ -94,22 +94,22 @@ describe('userMapToArray', () => {
             [userAsb456a46.id]: userAsb456a46,
             [userSomeIdzxc.id]: userSomeIdzxc,
             [userQwer.id]: userQwer,
-        }
+        };
 
         const actual = userMapToArray(map);
 
-        expect(actual).toMatchObject([userAsb456a46, userQwer, userSomeId, userSomeIdzxc])
-    })
-})
+        expect(actual).toMatchObject([userAsb456a46, userQwer, userSomeId, userSomeIdzxc]);
+    });
+});
 
 describe('userMapToArray', () => {
     it.each([[userAsb456a46], [userQwer], [userSomeId], [userSomeIdzxc]])('turns a single user in array to single user in map', (user) => {
-        const array: User[] = [user]
+        const array: User[] = [user];
 
         const actual = userArrayToMap(array);
 
-        expect(actual).toMatchObject({[user.id]: user})
-    })
+        expect(actual).toMatchObject({[user.id]: user});
+    });
 
     it.each([
         [[userAsb456a46], [userQwer], [userSomeId], [userSomeIdzxc]],
@@ -124,6 +124,6 @@ describe('userMapToArray', () => {
             [userSomeId.id]: userSomeId,
             [userSomeIdzxc.id]: userSomeIdzxc,
             [userQwer.id]: userQwer,
-        })
-    })
-})
+        });
+    });
+});

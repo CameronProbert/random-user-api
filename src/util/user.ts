@@ -1,5 +1,5 @@
-import { Map, UserApi, UserModel } from "../types";
-import { randomInteger } from "./number";
+import { Map, UserApi, UserModel } from '../types';
+import { randomInteger } from './number';
 
 export function userMapToArray<T extends {id: string}>(userMap: Map<T>): T[] {
     return Object.values(userMap).sort((a, b) => a.id.localeCompare(b.id));
@@ -8,7 +8,7 @@ export function userMapToArray<T extends {id: string}>(userMap: Map<T>): T[] {
 export function userArrayToMap<T extends {id: string}>(userArray: ReadonlyArray<T>): Map<T> {
     const userMap: Map<T> = {};
     userArray.forEach(user => {
-        if (userMap[user.id]) throw new Error(`A user with ID '${user.id}' exists multiple times in the array`)
+        if (userMap[user.id]) throw new Error(`A user with ID '${user.id}' exists multiple times in the array`);
         userMap[user.id] = user;
     });
     return userMap;
@@ -26,7 +26,7 @@ export function transformApiToModel(apiUser: UserApi): UserModel {
         pictureLargeUrl: picture.large,
         pictureThumbnailUrl: picture.thumbnail,
         title: name.title
-    }
+    };
 }
 
 export function transformModelToApi(modelUser: UserModel): UserApi {
@@ -40,7 +40,7 @@ export function transformModelToApi(modelUser: UserModel): UserApi {
         phone,
         pictureLargeUrl,
         pictureThumbnailUrl,
-      } = modelUser;
+    } = modelUser;
     return {
         dob: {
             age: new Date().getFullYear() - dob.getFullYear(), // obviously not correct, just an approximation
@@ -58,7 +58,7 @@ export function transformModelToApi(modelUser: UserModel): UserApi {
             large: pictureLargeUrl,
             thumbnail: pictureThumbnailUrl,
         }
-    }
+    };
 }
 
 export function randomDob() {
@@ -66,10 +66,10 @@ export function randomDob() {
     const month = randomInteger(0, 11);
     const day = randomInteger(1, 28); // Should get actual possible days in month
 
-    return new Date(year, month, day)
+    return new Date(year, month, day);
 }
 
-const emails = ["puppies%number%@givethemtome.com", "cats%number%@arethebest.co.nz"]
+const emails = ['puppies%number%@givethemtome.com', 'cats%number%@arethebest.co.nz'];
 export function randomEmail(): string {
     return emails[randomInteger(0, emails.length - 1)].replace('%number%', randomInteger(1, 4000).toString());
 }
@@ -78,7 +78,7 @@ export function randomPhoneNumber(): string {
     return randomInteger(1000000000, 9999999998).toString();
 }
 
-const names = ["Jamie", "Toni", "Robin", "Fletch"]
+const names = ['Jamie', 'Toni', 'Robin', 'Fletch'];
 export function randomName(): string {
     return names[randomInteger(0, names.length - 1)];
 }
@@ -89,7 +89,7 @@ export function randomCatUrl(): string {
     return randomInteger(0, 10000).toString();
 }
 
-const titles = ["Dr", "Ms", "Mr", "Mrs"]
+const titles = ['Dr', 'Ms', 'Mr', 'Mrs'];
 export function randomTitle(): string {
     return titles[randomInteger(0, titles.length - 1)];
 }
