@@ -1,6 +1,6 @@
 import express from 'express';
 import { UserApi } from '../types';
-import { getById, getRandomUser, getNewRandomUser, getFiltered, deleteById } from '../service/user';
+import { getById, getRandomUser, getNewRandomUser, getFiltered, deleteById, addNewUser } from '../service/user';
 
 const app = express();
 
@@ -42,7 +42,17 @@ app.delete('/users/:userId', async (req, res) => {
     const userId: string = req.params.userId;
     try {
         await deleteById(userId);
-        res.send();
+        res.send(`Deleted user ${userId}`);
+    } catch (err) {
+        res.status(404).send(err); // TODO send user friendly error
+    }
+});
+
+app.post('/users/new', async (req, res) => {
+    const user: UserApi = req.body;
+    try {
+        const id = await addNewUser(user);
+        res.send(`Created successfully with id: ${id}`);
     } catch (err) {
         res.status(404).send(err); // TODO send user friendly error
     }

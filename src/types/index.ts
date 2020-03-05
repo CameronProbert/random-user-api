@@ -17,6 +17,24 @@ export type UserApi = {
   }
 }
 
+export type UserApiToSave = {
+  name: {
+    title: string,
+    first: string,
+    last: string
+  },
+  email: string,
+  dob: {
+    date: Date,
+    age: number
+  },
+  phone: string,
+  picture: {
+    large: string,
+    thumbnail: string
+  }
+}
+
 export type UserModel = {
   id: string,
   title: string,

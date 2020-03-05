@@ -1,4 +1,4 @@
-import { Map, UserApi, UserModel } from '../types';
+import { Map, UserApi, UserModel, UserApiToSave, UserModelToSave } from '../types';
 import { randomInteger } from './number';
 
 export function userMapToArray<T extends {id: string}>(userMap: Map<T>): T[] {
@@ -22,6 +22,21 @@ export function transformApiToModel(apiUser: UserApi): UserModel {
         firstName: name.first,
         lastName: name.last,
         id,
+        phone,
+        pictureLargeUrl: picture.large,
+        pictureThumbnailUrl: picture.thumbnail,
+        title: name.title
+    };
+}
+
+export function transformApiToModelToSave(apiUser: UserApiToSave): UserModelToSave {
+    const { dob, email, name, phone, picture } = apiUser;
+    return {
+        dob: dob.date,
+        email,
+        firstName: name.first,
+        lastName: name.last,
+        id: null,
         phone,
         pictureLargeUrl: picture.large,
         pictureThumbnailUrl: picture.thumbnail,

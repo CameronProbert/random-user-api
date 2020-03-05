@@ -1,6 +1,6 @@
-import { UserApi, UserModelToSave, FilterOptions } from '../types';
+import { UserApi, UserModelToSave, FilterOptions, UserApiToSave } from '../types';
 import { getAll, get, insert, save } from '../repository/user';
-import { userMapToArray, transformModelToApi, randomDob, randomEmail, randomName, randomPhoneNumber, randomCatUrl, randomTitle } from '../util/user';
+import { userMapToArray, transformModelToApi, randomDob, randomEmail, randomName, randomPhoneNumber, randomCatUrl, randomTitle, transformApiToModelToSave } from '../util/user';
 
 export async function getFirstUser(): Promise<UserApi> {
     const allUsers = userMapToArray(await getAll());
@@ -59,4 +59,8 @@ export async function deleteById(id: string): Promise<void> {
     } catch (err) {
         throw new Error(`There was a problem deleting user ${id}`);
     }
+}
+
+export async function addNewUser(user: UserApiToSave): Promise<string> {
+    return insert(transformApiToModelToSave(user));
 }
