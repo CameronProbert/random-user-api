@@ -9,7 +9,7 @@ import { writeFile, readFile } from '../util/file';
 const jsonPath: Readonly<string> = path.join('./public', 'testData.json');
 
 
-async function save(allUsers: Map<UserModel>): Promise<void> {
+export async function save(allUsers: Map<UserModel>): Promise<void> {
     writeFile(jsonPath, JSON.stringify(allUsers, null, 2));
 }
 

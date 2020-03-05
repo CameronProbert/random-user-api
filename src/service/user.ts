@@ -1,5 +1,5 @@
 import { UserApi, UserModelToSave, FilterOptions } from '../types';
-import { getAll, get, insert } from '../repository/user';
+import { getAll, get, insert, save } from '../repository/user';
 import { userMapToArray, transformModelToApi, randomDob, randomEmail, randomName, randomPhoneNumber, randomCatUrl, randomTitle } from '../util/user';
 
 export async function getFirstUser(): Promise<UserApi> {
@@ -48,4 +48,15 @@ export async function getFiltered(filters: FilterOptions): Promise<UserApi[]> {
         return filteredUsers.slice(0, numToReturn).map(transformModelToApi);
     }
     return filteredUsers.map(transformModelToApi);
+}
+
+export async function deleteById(id: string): Promise<void> {
+    const allUsers = await getAll();
+    if (!allUsers[id]) throw new Error(`Could not find user with ID ${id}`)
+    try {
+        delete allUsers[id];
+        save(allUsers);
+    } catch (err) {
+        throw new Error(`There was a problem deleting user ${id}`);
+    }
 }

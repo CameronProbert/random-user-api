@@ -1,6 +1,6 @@
 import express from 'express';
 import { UserApi } from '../types';
-import { getById, getRandomUser, getNewRandomUser, getFiltered } from '../service/user';
+import { getById, getRandomUser, getNewRandomUser, getFiltered, deleteById } from '../service/user';
 
 const app = express();
 
@@ -33,6 +33,16 @@ app.get('/users/:userId', async (req, res) => {
     try {
         const user: UserApi = await getById(userId);
         res.send(user);
+    } catch (err) {
+        res.status(404).send(err); // TODO send user friendly error
+    }
+});
+
+app.delete('/users/:userId', async (req, res) => {
+    const userId: string = req.params.userId;
+    try {
+        await deleteById(userId);
+        res.send();
     } catch (err) {
         res.status(404).send(err); // TODO send user friendly error
     }
