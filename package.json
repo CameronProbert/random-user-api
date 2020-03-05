@@ -2,9 +2,10 @@
   "name": "random-user-api",
   "version": "1.0.0",
   "description": "Typescript Node API that returns random users in JSON format",
-  "main": "index.js",
+  "main": "index.ts",
   "repository": "https://github.com/CameronProbert/random-user-api.git",
   "author": "Cameron Probert <c.probert@hotmail.co.nz>",
+  "type": "commonjs",
   "license": "MIT",
   "private": true,
   "devDependencies": {
@@ -24,8 +25,11 @@
   "scripts": {
     "build": "yarn tsc",
     "start": "node dist/index.js",
-    "test": "jest",
+    "test": "NODE_ENV-test jest",
     "dev": "ts-node-dev src/index.ts",
     "tsc-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "ts-jest": "^25.2.1"
   }
 }
