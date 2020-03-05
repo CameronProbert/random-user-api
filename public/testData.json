@@ -1,5 +1,6 @@
 {
-	"someGuid": {
+	"0390511T": {
+		"id": "0390511T",
 		"name": {
 			"title": "mr",
 			"first": "brad",
@@ -11,10 +12,6 @@
 			"age": 26
 		},
 		"phone": "011-962-7516",
-		"id": {
-			"name": "PPS",
-			"value": "0390511T"
-		},
 		"picture": {
 			"large": "https://randomuser.me/api/portraits/men/75.jpg",
 			"thumbnail": "https://randomuser.me/api/portraits/thumb/men/75.jpg"
