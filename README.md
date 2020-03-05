@@ -16,11 +16,13 @@ Get a list of 20 users: `get /users`
 Get a list of x users: `get /users?results=x`  
 Get a user by id: `get /users/id`  
 Get a random (pre-generated) user: `get /users/random`  
-Get a random new user: `get /users/new`
-
-## Todo
+Get a random new user: `get /users/new`--
 Filter based on firstName (wip branch)  
 Filter based on lastName (wip branch)  
 Updating a user's details  
 Deleting a user  
-Swap out repository implementation for a real database (currently using a .json file)
+
+## Todo
+Swap out repository implementation for a real database (currently using a .json file)  
+Fix the currently broken tests  
+Fix the approximations used for things like age
