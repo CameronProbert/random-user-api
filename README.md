@@ -14,13 +14,14 @@ Typescript Node API that returns random users in JSON format
 ## Implemented features
 Get a list of 20 users: `get /users`  
 Get a list of x users: `get /users?results=x`  
-Get a user by id: `get /users/id`  
+Get a user by id: `get /users/:id`  
 Get a random (pre-generated) user: `get /users/random`  
-Get a random new user: `get /users/new`--
-Filter based on firstName (wip branch)  
-Filter based on lastName (wip branch)  
-Updating a user's details  
-Deleting a user  
+Get a random new user: `get /users/new`  
+Filter based on firstName: `get /users?firstName=x`  
+Filter based on lastName: `get /users?firstName=x`  
+Updating a user's details: `post /users/:id`  
+Deleting a user: `delete /users/:id`  
+Adding a new user: `post /users/new`
 
 ## Todo
 Swap out repository implementation for a real database (currently using a .json file)  
