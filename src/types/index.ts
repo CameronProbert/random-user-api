@@ -40,4 +40,11 @@ export type UserModelToSave = {
   pictureLargeUrl: string,
   pictureThumbnailUrl: string,
 }
+
 export type Map<T> = {[id: string]: T}
+
+export type FilterOptions = Partial<{
+  numToReturn: number,
+  firstName: string,
+  lastName: string,
+}>

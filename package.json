@@ -25,9 +25,11 @@
   "scripts": {
     "build": "yarn tsc",
     "start": "node dist/index.js",
-    "test": "NODE_ENV-test jest",
+    "test": "jest",
     "dev": "ts-node-dev src/index.ts",
-    "tsc-check": "tsc --noEmit"
+    "tsc-check": "tsc --noEmit",
+    "lint": "eslint src/**",
+    "precommit": "yarn tsc-check && yarn test && yarn lint"
   },
   "dependencies": {
     "ts-jest": "^25.2.1"
