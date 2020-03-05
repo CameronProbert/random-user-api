@@ -1,6 +1,6 @@
 import express from 'express';
 import { UserApi } from '../types';
-import { getById, getRandomUser, getNewRandomUser, getFiltered, deleteById, addNewUser } from '../service/user';
+import { getById, getRandomUser, getNewRandomUser, getFiltered, deleteById, addNewUser, updateUser } from '../service/user';
 
 const app = express();
 
@@ -34,7 +34,7 @@ app.get('/users/:userId', async (req, res) => {
         const user: UserApi = await getById(userId);
         res.send(user);
     } catch (err) {
-        res.status(404).send(err); // TODO send user friendly error
+        res.status(400).send(err); // TODO send user friendly error
     }
 });
 
@@ -44,7 +44,7 @@ app.delete('/users/:userId', async (req, res) => {
         await deleteById(userId);
         res.send(`Deleted user ${userId}`);
     } catch (err) {
-        res.status(404).send(err); // TODO send user friendly error
+        res.status(400).send(err); // TODO send user friendly error
     }
 });
 
@@ -54,7 +54,21 @@ app.post('/users/new', async (req, res) => {
         const id = await addNewUser(user);
         res.send(`Created successfully with id: ${id}`);
     } catch (err) {
-        res.status(404).send(err); // TODO send user friendly error
+        res.status(400).send(err); // TODO send user friendly error
+    }
+});
+
+app.post('/users/:id', async (req, res) => {
+    const userId: string = req.params.id;
+    console.log(req.params)
+    const user: Partial<UserApi> = req.body;
+    try {
+        if (!userId) res.status(400).send('Invalid id');
+        if (!getById(userId)) res.status(400).send(`No user with ID ${userId}`);
+        await updateUser(userId, user);
+        res.send(`User ${userId} updated`);
+    } catch (err) {
+        res.status(400).send(err); // TODO send user friendly error
     }
 });
 
